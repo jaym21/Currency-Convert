@@ -1,6 +1,8 @@
 package com.example.currencyconvert.dagger
 
 import com.example.currencyconvert.api.CurrencyAPI
+import com.example.currencyconvert.repository.CurrencyRepository
+import com.example.currencyconvert.repository.CurrencyRepositoryDefault
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,4 +28,9 @@ object AppModule {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(CurrencyAPI::class.java)
-}
+
+    //creating a function to provide repository
+    @Singleton
+    @Provides
+    fun provideCurrencyRepository(api: CurrencyAPI): CurrencyRepository = CurrencyRepositoryDefault(api) //we can change the default(main) repository
+}                                                                                                        //with fakeRepository for testing

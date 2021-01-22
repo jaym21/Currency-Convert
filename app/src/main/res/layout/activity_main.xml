@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etFrom"
+            android:id="@+id/etAmount"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Amount"
