@@ -1,14 +1,14 @@
 package com.example.currencyconvert.ui
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.currencyconvert.api.models.Rates
 import com.example.currencyconvert.repository.CurrencyRepository
 import com.example.currencyconvert.util.Resource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlin.math.round
 
@@ -25,8 +25,8 @@ class CurrencyViewModel @ViewModelInject constructor(
     }
 
     //making the conversion value LiveData
-    private val _conversion = MutableLiveData<CurrencyEvents>(CurrencyEvents.InitialState)
-    val conversion: LiveData<CurrencyEvents> = _conversion
+    private val _conversion = MutableStateFlow<CurrencyEvents>(CurrencyEvents.InitialState)
+    val conversion: StateFlow<CurrencyEvents> = _conversion
 
 
 
@@ -57,7 +57,7 @@ class CurrencyViewModel @ViewModelInject constructor(
                     }
                     //if we get valid rate response
                     //calculating the converted currency(required currency) value by original and required currency rate
-                    val convertedCurrency = round(enteredAmount * rateOfToCurrency!! * 100)/100 //multiplication and division of 100 limits the result to 2 decimal places
+                    val convertedCurrency = round(enteredAmount!! * rateOfToCurrency!! * 100)/100 //multiplication and division of 100 limits the result to 2 decimal places
                     _conversion.value = CurrencyEvents.Success("$enteredAmount $fromCurrency = $convertedCurrency $toCurrency")
                 }
                 is Resource.Error -> _conversion.value = CurrencyEvents.Failure(ratesResponse.responseMessage!!)
