@@ -29,9 +29,9 @@ class MainActivity : AppCompatActivity() {
 
             //calling the convertAmount function from viewModel when Convert button is clicked
             viewModel.convertAmount(
-                binding.etAmount,
-                binding.spFromCurrency.toString(),
-                binding.spToCurrency.toString())
+                binding.etAmount.text.toString(),
+                binding.spFromCurrency.selectedItem.toString(),
+                binding.spToCurrency.selectedItem.toString())
         }
 
         lifecycleScope.launchWhenStarted {
@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
                     is CurrencyViewModel.CurrencyEvents.Success -> {
                         //when we get a success event
                         binding.progressBar.isVisible = false
+                        binding.tvResult.setTextColor(Color.BLACK)
                         binding.tvResult.text = event.resultAmount
                     }
                     is CurrencyViewModel.CurrencyEvents.Failure -> {

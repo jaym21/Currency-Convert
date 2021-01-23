@@ -54,11 +54,13 @@ class CurrencyViewModel @ViewModelInject constructor(
                     //checking if we get null response from api for currency rate
                     if (rateOfToCurrency == null) {
                         _conversion.value = CurrencyEvents.Failure("Error while getting rate for required currency")
+                    }else {
+                        //if we get valid rate response
+                        //calculating the converted currency(required currency) value by original and required currency rate
+                        val convertedCurrency = round(enteredAmount * rateOfToCurrency * 100)/100 //multiplication and division of 100 limits the result to 2 decimal places
+                        _conversion.value = CurrencyEvents.Success("$enteredAmount $fromCurrency = $convertedCurrency $toCurrency")
                     }
-                    //if we get valid rate response
-                    //calculating the converted currency(required currency) value by original and required currency rate
-                    val convertedCurrency = round(enteredAmount!! * rateOfToCurrency!! * 100)/100 //multiplication and division of 100 limits the result to 2 decimal places
-                    _conversion.value = CurrencyEvents.Success("$enteredAmount $fromCurrency = $convertedCurrency $toCurrency")
+
                 }
                 is Resource.Error -> _conversion.value = CurrencyEvents.Failure(ratesResponse.responseMessage!!)
             }
