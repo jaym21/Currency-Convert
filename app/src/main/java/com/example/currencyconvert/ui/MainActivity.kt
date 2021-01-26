@@ -1,5 +1,6 @@
 package com.example.currencyconvert.ui
 
+import android.content.Intent
 import android.graphics.Color
 import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
@@ -41,7 +42,8 @@ class MainActivity : AppCompatActivity() {
                     is CurrencyViewModel.CurrencyEvents.Success -> {
                         //when we get a success event
                         binding.progressBar.isVisible = false
-                        binding.tvResult.setTextColor(Color.BLACK)
+                        binding.tvResult.setTextColor(Color.parseColor("#f47100"))
+                        binding.tvResult.setTextSize(22F)
                         binding.tvResult.text = event.resultAmount
                     }
                     is CurrencyViewModel.CurrencyEvents.Failure -> {
@@ -57,6 +59,11 @@ class MainActivity : AppCompatActivity() {
                     else -> Unit
                 }
             }
+        }
+
+        //when see rates btn is clicked
+        binding.btnSeeRates.setOnClickListener {
+            startActivity(Intent(this, CurrencyRates::class.java))
         }
     }
 }

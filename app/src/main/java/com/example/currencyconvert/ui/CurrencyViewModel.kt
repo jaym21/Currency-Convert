@@ -1,5 +1,9 @@
 package com.example.currencyconvert.ui
 
+import android.provider.Telephony
+import android.util.Log
+import android.widget.ListView
+import android.widget.TextView
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,6 +20,8 @@ class CurrencyViewModel @ViewModelInject constructor(
     private val currencyRepository: CurrencyRepository
 ) : ViewModel() {
 
+
+
     //creating events for viewModel functions response events
     sealed class CurrencyEvents {
         class Success(val resultAmount: String): CurrencyEvents()
@@ -24,9 +30,19 @@ class CurrencyViewModel @ViewModelInject constructor(
         object InitialState: CurrencyEvents() //for initial state
     }
 
+    sealed class RatesEvent {
+        class Success(val rates: Rates): RatesEvent()
+        class Failure(val errorMessage: String): RatesEvent()
+        object InitialState: RatesEvent()
+    }
+
     //making the conversion value LiveData
     private val _conversion = MutableStateFlow<CurrencyEvents>(CurrencyEvents.InitialState)
     val conversion: StateFlow<CurrencyEvents> = _conversion
+
+    //making rates value LiveData
+    private val _rates = MutableStateFlow<RatesEvent>(RatesEvent.InitialState)
+    val rates: StateFlow<RatesEvent> = _rates
 
 
 
@@ -58,7 +74,7 @@ class CurrencyViewModel @ViewModelInject constructor(
                         //if we get valid rate response
                         //calculating the converted currency(required currency) value by original and required currency rate
                         val convertedCurrency = round(enteredAmount * rateOfToCurrency * 100)/100 //multiplication and division of 100 limits the result to 2 decimal places
-                        _conversion.value = CurrencyEvents.Success("$enteredAmount $fromCurrency = $convertedCurrency $toCurrency")
+                        _conversion.value = CurrencyEvents.Success("$fromCurrency $enteredAmount ⇋ $convertedCurrency $toCurrency")
                     }
 
                 }
@@ -103,4 +119,25 @@ class CurrencyViewModel @ViewModelInject constructor(
         "MYR" -> rates.MYR
         else -> null
     }
+
+    //to get Rates for Currency Rates activity
+    fun getRatesForCurrency(base: String, tvRatesList: TextView) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when(val ratesResponse = currencyRepository.getRates(base)) {
+                is Resource.Success -> {
+                    //getting the rates
+                    val rates = ratesResponse.data?.rates
+                    if (rates == null) {
+                        _rates.value = RatesEvent.Failure("Error occurred in rates response from api")
+                    }else{
+                        _rates.value = RatesEvent.Success(rates)
+                    }
+                }
+                is Resource.Error -> {
+                    _rates.value = RatesEvent.Failure(ratesResponse.responseMessage!!)
+                }
+            }
+        }
+    }
+
 }
