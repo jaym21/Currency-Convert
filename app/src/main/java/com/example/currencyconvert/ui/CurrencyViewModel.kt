@@ -74,7 +74,7 @@ class CurrencyViewModel @ViewModelInject constructor(
                         //if we get valid rate response
                         //calculating the converted currency(required currency) value by original and required currency rate
                         val convertedCurrency = round(enteredAmount * rateOfToCurrency * 100)/100 //multiplication and division of 100 limits the result to 2 decimal places
-                        _conversion.value = CurrencyEvents.Success("$fromCurrency $enteredAmount ⇋ $convertedCurrency $toCurrency")
+                        _conversion.value = CurrencyEvents.Success("$convertedCurrency $toCurrency")
                     }
 
                 }

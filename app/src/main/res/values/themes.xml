@@ -2,12 +2,12 @@
     <!-- Base application theme. -->
     <style name="Theme.CurrencyConvert" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/orange_500</item>
-        <item name="colorPrimaryVariant">@color/orange_700</item>
+        <item name="colorPrimary">@color/moss_medium</item>
+        <item name="colorPrimaryVariant">@color/moss_dark</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/maroon_200</item>
-        <item name="colorSecondaryVariant">@color/maroon_700</item>
+        <item name="colorSecondary">@color/moss_light</item>
+        <item name="colorSecondaryVariant">@color/moss_dark</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
@@ -16,11 +16,7 @@
 
     <!--    Amount Input-->
     <style name="AmountInputStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/orange_500</item>
+        <item name="boxStrokeColor">@color/moss_light</item>
         <item name="boxStrokeWidth">2dp</item>
-    </style>
-
-    <style name="ResultTextStyle" parent="TextAppearance.AppCompat">
-
     </style>
 </resources>
