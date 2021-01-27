@@ -7,6 +7,14 @@
     tools:context=".ui.CurrencyRates"
     android:padding="20dp">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBack"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:background="@drawable/ic_backbutton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
     <TextView
         android:id="@+id/tvSelect"
         android:layout_width="wrap_content"
@@ -14,16 +22,18 @@
         android:text="@string/select_country_code"
         android:fontFamily="@font/montserrat_regular"
         android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/btnBack"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="15dp"/>
 
     <Spinner
         android:id="@+id/spCurrencyRates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:entries="@array/currency_codes"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/btnBack"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="15dp"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnGetRates"
@@ -45,11 +55,13 @@
         android:layout_height="0dp"
         android:textSize="20sp"
         android:scrollbars="vertical"
+        android:textColor="@color/moss_medium"
         android:fontFamily="@font/montserrat_regular"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnGetRates"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="10dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

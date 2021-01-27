@@ -23,7 +23,12 @@ class CurrencyRates : AppCompatActivity() {
         binding = ActivityCurrencyRatesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //back button funtionality
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
 
+        //get rates button funtionality
         binding.btnGetRates.setOnClickListener {
             viewModel.getRatesForCurrency(binding.spCurrencyRates.selectedItem.toString(), binding.tvRatesList)
         }
