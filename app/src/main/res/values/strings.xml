@@ -1,12 +1,11 @@
 <resources>
     <string name="app_name">Currency Convert</string>
-    <string name="currency_convert">Currency Convert</string>
     <string name="enter_amount">Enter Amount</string>
     <string name="to">To</string>
     <string name="convert">Convert</string>
     <string name="get_rates">Get Rates</string>
     <string name="select_country_code">Select country code:</string>
-    <string name="see_rates">See Rates</string>
+    <string name="see_rates">Check Rates</string>
     <string-array name="currency_codes">
         <item>CAD</item>
         <item>EUR</item>
